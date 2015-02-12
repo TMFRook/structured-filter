@@ -63,7 +63,8 @@
 		number:'number',
 		date:'date',
 		time:'time',
-		list:'list'
+		list:'list',
+        contains:'contains'
 	};
 
 
@@ -336,6 +337,11 @@ $.widget( 'evol.structFilter', {
 					h.push(EvoUI.inputHidden('operator',evoAPI.sInList));
 					this._operator=evoAPI.sInList;
 					break;
+                case fTypes.contains:
+                    h.push('<select id="operator"><option value=""></option>');
+                    h.push(EvoUI.inputOption(evoAPI.sContain, evoLang.sContain));
+                    h.push('</select>');
+                    break;
 				case fTypes.bool:
 					//h.push(evoLang.sEqual);
 					h.push(EvoUI.inputHidden('operator',evoAPI.sEqual));
@@ -426,7 +432,8 @@ $.widget( 'evol.structFilter', {
 					}
 					editor.append(h.join(''));
 					if(fType==fTypes.date){
-						editor.find('#value,#value2').datepicker({dateFormat:this.options.dateFormat});
+						editor.find('#value,#value2').datePicker();
+						//editor.find('#value,#value2').datepicker({dateFormat:this.options.dateFormat});
 					}
 				}
 				if(v){
